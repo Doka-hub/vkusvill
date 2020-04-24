@@ -1,0 +1,7 @@
+pkg-resources==0.0.0
+pyaes==1.6.1
+pyasn1==0.4.8
+Pyrogram==0.16.0
+PySocks==1.7.0
+rsa==4.0
+TgCrypto==1.2.0
