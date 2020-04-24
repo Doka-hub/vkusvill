@@ -9,9 +9,10 @@ global last
 carts = []
 with open('carts.json', 'r') as fp:
     carts_ = json.load(fp)
+
 for i in range(int(carts_['start']), int(carts_['end'])+1):
-    if carts_['start'].startswith('0'):
-        carts.append('0'+str(i))
+    carts.append('0'*(int(len(carts_['start'])-len(str(i))))+str(i))
+
 with open('api.json') as f:
     api = json.load(f)
 
