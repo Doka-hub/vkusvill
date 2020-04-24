@@ -1,11 +1,10 @@
 from pyrogram import Client, Filters
 import settings
 import re
-import manage
 import time
 import json
 global last
-last = 0
+
 
 carts = []
 with open('carts.json', 'r') as fp:
@@ -14,9 +13,9 @@ for i in range(int(carts_['start']), int(carts_['end'])+1):
     if carts_['start'].startswith('0'):
         carts.append('0'+str(i))
 with open('api.json') as f:
-    api = json.loads(f)
+    api = json.load(f)
 
-cl = Client('Session', api_id=api['api_id'], api_hash=api['hash'])
+cl = Client('Session', api_id=api['api_id'], api_hash=api['api_hash'])
 
 
 @cl.on_message(Filters.regex('Авторизоваться') | Filters.regex('Активировать карту'))
@@ -39,14 +38,14 @@ def send_cart(client, message):
             settings.NUMBER,
             settings.NAME
         )
-        time.sleep(4.0)
+        time.sleep(2.5)
         try:
             client.send_message(
                 'VkusVillBot',
                 carts[0]
             )
         except IndexError:
-            print('Номера закончились')
+            print('Номера карт закончились')
         carts.remove(carts[0])
         with open('carts.json', 'w') as fp:
             json.dump({
@@ -57,13 +56,23 @@ def send_cart(client, message):
 
 @cl.on_message(
     Filters.regex('Неправильный формат номера') |
-    Filters.regex('Изменить номер телефона') |
-    Filters.regex('я не могу определить') |
     Filters.regex('уже привязана')
+)
+def restart(client, message):
+    if message.chat.username == 'VkusVillBot':
+        client.send_message(
+            'VkusVillBot',
+            '/start'
+        )
+
+
+@cl.on_message(
+    Filters.regex('Изменить номер телефона') |
+    Filters.regex('я не могу определить')
 )
 def cant_find(client, message):
     if message.chat.username == 'VkusVillBot':
-        time.sleep(4.0)
+        time.sleep(2.5)
         try:
             client.send_message(
                 'VkusVillBot',
@@ -100,12 +109,20 @@ def send_name(client, message):
         )
 
 
+@cl.on_message(Filters.regex('Проблема с регистрацией'))
+def send_name(client, message):
+    if message.chat.username == 'VkusVillBot':
+        client.send_message(
+            'VkusVillBot',
+            '/start'
+        )
+
+
 @cl.on_message(Filters.regex('всю информацию'))
 def get_cart_info(client, message):
     if message.chat.username == 'VkusVillBot':
         if message.reply_markup:
             for i in message.reply_markup['keyboard']:
-                print(i)
                 if 'Карта ' in i[0]:
                     client.send_message(
                         'VkusVillBot',
