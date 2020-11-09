@@ -20,7 +20,7 @@ for number_of_card in range(int(start), int(end) + 1):
     carts.append('0' * (int(len(start) - len(str(number_of_card)))) + str(number_of_card))
 
 
-bot = Client('session', api_id=config.API_ID, api_hash=config.API_HASH)
+bot = Client('session', api_id=config.API_ID, api_hash=config.API_HASH, bot_token=config.BOT_TOKEN)
 
 
 @bot.on_message(Filters.regex('Авторизоваться') | Filters.regex('Активировать карту'))
