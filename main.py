@@ -20,7 +20,7 @@ for number_of_card in range(int(start), int(end) + 1):
     carts.append('0' * (int(len(start) - len(str(number_of_card)))) + str(number_of_card))
 
 
-bot = Client('session', api_id=config.API_ID, api_hash=config.API_HASH, bot_token=config.BOT_TOKEN)
+bot = Client('session', api_id=config.API_ID, api_hash=config.API_HASH, phone_number=config.PHONE_NUMBER)
 
 
 @bot.on_message(Filters.regex('Авторизоваться') | Filters.regex('Активировать карту'))
@@ -35,7 +35,7 @@ def authorization(client: Client, message: Message) -> None:
 @bot.on_message(Filters.regex('Политикой'))
 def send_cart(client: Client, message: Message) -> None:
     if message.chat.username == 'VkusVillBot':
-        client.send_contact('VkusVillBot', config.NUMBER, config.NAME)
+        client.send_contact('VkusVillBot', config.PHONE_NUMBER, config.NAME)
         sleep(2.5)
         try:
             client.send_message('VkusVillBot', carts[0])  # берёт первую карту

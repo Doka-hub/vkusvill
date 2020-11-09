@@ -1,6 +1,5 @@
-# filmy_bot
-Данный бот принимает ссылку на фильм от пользователя, парсит контент и постит в канал.
-
+# Vkusvill BOT
+Бот собирает данные по картам бота Vkusvill
 python <= 3.7.0
 
 # Install
@@ -21,9 +20,10 @@ pip install -r requitements.txt
   ```
   API_ID=TELEGRAM_API_ID
   API_HASH=TELEGRAM_API_HASH
-  BOT_TOKEN=BOT_TOKEN
-  ADMIN=ADMIN_USERNAME
-  CHANNEL=CHANNEL_ID
+  NAME=NAME
+  PHONE_NUMBER=PHONE_NUMBER
   ```
 # RUN
 ```python bot.py```
+
+Далее необходимо ввести код в консоль, который пришёл от телеграма
