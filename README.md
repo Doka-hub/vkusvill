@@ -24,6 +24,6 @@ pip install -r requitements.txt
   PHONE_NUMBER=PHONE_NUMBER
   ```
 # RUN
-```python bot.py```
+```python main.py```
 
 Далее необходимо ввести код в консоль, который пришёл от телеграма
